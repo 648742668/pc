@@ -103,6 +103,7 @@ export default {
       this.get(basePrefix + '/get_one', { id: this.id }, obj => {
         this.id = obj.id
         this.formData = obj
+        this.formData.rawPassword = ""
         this.fileList.push({
           name: obj.img, url: IMG_URL+obj.img
         })

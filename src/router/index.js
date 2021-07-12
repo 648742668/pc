@@ -79,32 +79,7 @@ export const constantRoutes = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
-      }
-    ]
-  },
-  {
-    path: '/documentation',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/documentation/index'),
-        name: 'Documentation',
-        meta: { title: 'Documentation', icon: 'documentation', affix: true }
-      }
-    ]
-  },
-  {
-    path: '/guide',
-    component: Layout,
-    redirect: '/guide/index',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/guide/index'),
-        name: 'Guide',
-        meta: { title: 'Guide', icon: 'guide', noCache: true }
+        meta: { title: '仪表盘', icon: 'dashboard', affix: true }
       }
     ]
   },
@@ -130,47 +105,6 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   {
-    path: '/permission',
-    component: Layout,
-    redirect: '/permission/page',
-    alwaysShow: true, // will always show the root menu
-    name: 'Permission',
-    meta: {
-      title: 'Permission',
-      icon: 'lock',
-      roles: ['admin', 'editor'] // you can set roles in root nav
-    },
-    children: [
-      {
-        path: 'page',
-        component: () => import('@/views/permission/page'),
-        name: 'PagePermission',
-        meta: {
-          title: 'Page Permission',
-          roles: ['admin'] // or you can only set roles in sub nav
-        }
-      },
-      {
-        path: 'directive',
-        component: () => import('@/views/permission/directive'),
-        name: 'DirectivePermission',
-        meta: {
-          title: 'Directive Permission'
-          // if do not set roles, means: this page does not require permission
-        }
-      },
-      {
-        path: 'role',
-        component: () => import('@/views/permission/role'),
-        name: 'RolePermission',
-        meta: {
-          title: 'Role Permission',
-          roles: ['admin']
-        }
-      }
-    ]
-  },
-  {
     path: '/user',
     component: Layout,
     redirect: '/user/list',
@@ -178,37 +112,60 @@ export const asyncRoutes = [
     name: 'User',
     meta: {
       title: '用户管理',
-      icon: 'lock',
+      icon: 'peoples',
       roles: ['admin', 'editor'] // you can set roles in root nav
     },
     children: [
       {
         path: 'list',
         component: () => import('@/views/user/index'),
-        name: 'PagePermission',
+        name: 'UserList',
         meta: {
           title: '用户管理',
           roles: ['admin'] // or you can only set roles in sub nav
         }
       },
       {
-        path: 'directive',
-        component: () => import('@/views/permission/directive'),
-        name: 'DirectivePermission',
+        path: 'role_user',
+        component: () => import('@/views/role_user/index'),
+        name: 'RoleUser',
+        hidden: true,
         meta: {
-          title: 'Directive Permission'
+          title: '关联用户',
+          roles: ['admin']
           // if do not set roles, means: this page does not require permission
-        }
+        },
       },
       {
-        path: 'role',
-        component: () => import('@/views/permission/role'),
-        name: 'RolePermission',
+        path: 'role_resource',
+        component: () => import('@/views/role_resource/index'),
+        name: 'RoleResource',
+        hidden: true,
         meta: {
-          title: 'Role Permission',
+          title: '关联权限',
           roles: ['admin']
-        }
-      }
+          // if do not set roles, means: this page does not require permission
+        },
+      },
+      {
+        path: 'role_list',
+        component: () => import('@/views/role/index'),
+        name: 'RoleList',
+        meta: {
+          title: '角色管理',
+          roles: ['admin']
+          // if do not set roles, means: this page does not require permission
+        },
+      },      {
+        path: 'resource_list',
+        component: () => import('@/views/resource/index'),
+        name: 'ResourceList',
+        meta: {
+          title: '权限管理',
+          roles: ['admin']
+          // if do not set roles, means: this page does not require permission
+        },
+      },
     ]
   },
   {
@@ -428,7 +385,7 @@ export const asyncRoutes = [
 ]
 
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
+  mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })
