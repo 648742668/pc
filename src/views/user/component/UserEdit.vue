@@ -14,7 +14,7 @@
       <el-form-item label="昵称" class="dialog-item inline" style="float: right" prop="nickname">
         <el-input v-model="formData.nickname" size="small" />
       </el-form-item>
-      <el-form-item label="密码" class="dialog-item inline"  prop="rawPassword">
+      <el-form-item label="密码" class="dialog-item inline" prop="rawPassword">
         <el-input v-model="formData.rawPassword" size="small" />
       </el-form-item>
 
@@ -68,6 +68,7 @@ export default {
         id: -1,
         nickname: '',
         rawPassword: '',
+        username:"",
         file: null
       },
       rules: {
@@ -101,8 +102,9 @@ export default {
     updateEdit() {
       this.submitUrl = basePrefix + '/update'
       this.get(basePrefix + '/get_one', { id: this.id }, obj => {
-        this.id = obj.id
-        this.formData = obj
+        this.formData.id=obj.id
+        this.formData.username = obj.username
+        this.formData.nickname = obj.nickname
         this.formData.rawPassword = ""
         this.fileList.push({
           name: obj.img, url: IMG_URL+obj.img
