@@ -43,9 +43,9 @@ const actions = {
     //   })
     // })
     return new Promise((resolve, reject) => {
-        commit('SET_TOKEN', 'admin-token')
-        setToken('admin-token')
-        resolve()
+      commit('SET_TOKEN', 'admin-token')
+      setToken('admin-token')
+      resolve()
     })
   },
 
@@ -76,29 +76,29 @@ const actions = {
     //   })
     // })
     return new Promise((resolve, reject) => {
-        const  data  = {
-          roles: ['admin'],
-          introduction: 'I am a super administrator',
-          avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-          name: 'Super Admin'
-        }
+      const data = {
+        roles: ['admin'],
+        introduction: 'I am a super administrator',
+        avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+        name: 'Super Admin'
+      }
 
-        if (!data) {
-          reject('Verification failed, please Login again.')
-        }
+      if (!data) {
+        reject('Verification failed, please Login again.')
+      }
 
-        const { roles, name, avatar, introduction } = data
+      const { roles, name, avatar, introduction } = data
 
-        // roles must be a non-empty array
-        if (!roles || roles.length <= 0) {
-          reject('getInfo: roles must be a non-null array!')
-        }
+      // roles must be a non-empty array
+      if (!roles || roles.length <= 0) {
+        reject('getInfo: roles must be a non-null array!')
+      }
 
-        commit('SET_ROLES', roles)
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
-        commit('SET_INTRODUCTION', introduction)
-        resolve(data)
+      commit('SET_ROLES', roles)
+      commit('SET_NAME', name)
+      commit('SET_AVATAR', avatar)
+      commit('SET_INTRODUCTION', introduction)
+      resolve(data)
     })
   },
 

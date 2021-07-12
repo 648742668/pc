@@ -5,14 +5,13 @@ import axios from "axios";
 import {Loading, Notification} from "element-ui";
 import store from '@/store'
 import qs from 'qs'
-import {BASE_URL} from "@/config/config";
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 let config = {
-  baseURL: BASE_URL
+  baseURL: 'http://localhost:8090'
   // baseURL: process.env.baseURL || process.env.apiUrl || ""
   // timeout: 60 * 1000, // Timeout
   // withCredentials: true, // Check cross-site Access-Control
@@ -22,34 +21,34 @@ const _axios = axios.create(config);
 
 //请求过滤器
 _axios.interceptors.request.use(
-    function (config) {
-      // Do something before request is sent
-      if (store.getters.GET_TOKEN){
-        config.headers['token'] = store.getters.GET_TOKEN
-      }
-      //重新定义数组序列化
-      config.paramsSerializer = (params) =>{
-        return qs.stringify(params,{arrayFormat: 'repeat'})
-      }
-      return config;
-    },
-    function (error) {
-      // Do something with request error
-      return Promise.reject(error);
+  function (config) {
+    // Do something before request is sent
+    if (store.getters.GET_TOKEN){
+      config.headers['token'] = store.getters.GET_TOKEN
     }
+    //重新定义数组序列化
+    config.paramsSerializer = (params) =>{
+      return qs.stringify(params,{arrayFormat: 'repeat'})
+    }
+    return config;
+  },
+  function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+  }
 );
 
 // Add a response interceptor
 //响应过滤器
 _axios.interceptors.response.use(
-    function (response) {
-      // Do something with response data
-      return response;
-    },
-    function (error) {
-      // Do something with response error
-      return Promise.reject(error);
-    }
+  function (response) {
+    // Do something with response data
+    return response;
+  },
+  function (error) {
+    // Do something with response error
+    return Promise.reject(error);
+  }
 );
 
 const request = (url, method, params, callback) => {
@@ -104,7 +103,7 @@ Vue.prototype.request = request
 
 Vue.prototype.get = (url, params, callback) => {
   request(url, 'get', params, response =>{
-    callback(response.obj)
+    callback(response.data)
   })
 }
 
@@ -114,6 +113,6 @@ Vue.prototype.post = (url, params, callback) => {
       title: '成功',
       message: response.message
     })
-    callback(response.obj)
+    callback(response.data)
   })
 }
