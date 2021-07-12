@@ -29,25 +29,16 @@
       <el-table-column
         align="center"
         prop="nickname"
+        label="昵称"
+        width="180"
+      />
+      <el-table-column
+        align="center"
+        prop="username"
         label="用户名"
         width="180"
       />
-      <el-table-column
-        align="center"
-        prop="phone"
-        label="电话"
-        width="180"
-      />
-      <el-table-column
-        align="center"
-        prop="email"
-        label="邮箱"
-      />
-      <el-table-column
-        align="center"
-        prop="birthday"
-        label="生日"
-      />
+
       <el-table-column
         align="center"
         prop="file"
@@ -82,22 +73,14 @@
       >
         <template slot-scope="scope">
           <template v-if="scope.row.isActive===1">
-            <el-popconfirm
-              title="确定要禁用该用户吗"
-              @confirm="delActive(scope.row.id,0)"
-            >
-              <el-button slot="reference" size="small" type="danger" style="margin-right: 20px">禁用
-              </el-button>
-            </el-popconfirm>
+
+            <el-button @click="delActive(scope.row.id,0)" size="small" type="danger" style="margin-right: 20px">禁用
+            </el-button>
             <el-button size="small" type="warn" @click="openUpdateDialog(scope.row.id)">修改</el-button>
           </template>
           <template v-else>
-            <el-popconfirm
-              title="确定要启用该用户吗"
-              @confirm="delActive(scope.row.id,1)"
-            >
-              <el-button slot="reference" size="small" type="success">启用</el-button>
-            </el-popconfirm>
+            <el-button @click="delActive(scope.row.id,1)" size="small" type="success" style="margin-right: 20px">启用
+            </el-button>
           </template>
         </template>
       </el-table-column>
@@ -199,14 +182,29 @@ export default {
       this.getTableData()
     },
     getTableData() {
-      this.request(basePrefix + '/list', 'get', this.query, data => {
+      this.get(basePrefix + '/list', this.query, data => {
         this.tableData = data
       })
     },
     delActive(id, active) {
-      this.request(basePrefix + '/del', 'post', { id: id, isActive: active }, data => {
-        this.getTableData()
-      })
+      let msg;
+      if (active ===0){
+        msg = "确定要禁用该用户"
+      }else {
+        msg = "确定要启用该用户"
+      }
+      this.$confirm(msg, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.post(basePrefix + '/del', { id: id, isActive: active }, data => {
+          this.getTableData()
+        })
+      }).catch(() => {
+
+      });
+
     }
   }
 }

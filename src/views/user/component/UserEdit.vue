@@ -8,35 +8,16 @@
       :model="formData"
     >
 
-      <el-form-item label="用户名" class="dialog-item inline" prop="nickname">
+      <el-form-item label="用户名" class="dialog-item inline" prop="username">
+        <el-input v-model="formData.username" size="small" />
+      </el-form-item>
+      <el-form-item label="昵称" class="dialog-item inline" style="float: right" prop="nickname">
         <el-input v-model="formData.nickname" size="small" />
       </el-form-item>
-      <el-form-item label="密码" class="dialog-item inline" style="float: right" prop="rawPassword">
-        <el-input v-model="formData.rawPassword" show-password size="small" />
-      </el-form-item>
-      <el-form-item label="邮箱" class="dialog-item inline" prop="email">
-        <el-input v-model="formData.email" size="small" />
-      </el-form-item>
-      <el-form-item label="电话" class="dialog-item inline" style="float: right" prop="phone">
-        <el-input v-model="formData.phone" size="small" />
-      </el-form-item>
-      <el-form-item label="生日" class="dialog-item" style="width: 100%" prop="birthday">
-        <el-date-picker
-          v-model="formData.birthday"
-          size="small"
-          type="date"
-          placeholder="选择日期"
-        />
-        <span style="position: absolute;right: 100px">
-          <el-button size="small" type="primary" @click="resetForm('formName')">取消</el-button>
-
-        </span>
-        <span style="position: absolute;right: 0">
-          <el-button size="small" type="primary" @click="submitForm('formName')">提交</el-button>
-        </span>
+      <el-form-item label="密码" class="dialog-item inline"  prop="rawPassword">
+        <el-input v-model="formData.rawPassword" size="small" />
       </el-form-item>
 
-      <el-form-item>
         <el-form-item label="头像" prop="file">
           <el-upload
             :file-list="fileList"
@@ -50,6 +31,15 @@
             <i class="el-icon-plus" />
           </el-upload>
         </el-form-item>
+      <el-form-item  class="dialog-item" style="width: 100%" >
+
+        <span style="position: absolute;right: 100px">
+          <el-button size="small" type="primary" @click="resetForm('formName')">取消</el-button>
+
+        </span>
+        <span style="position: absolute;right: 0">
+          <el-button size="small" type="primary" @click="submitForm('formName')">提交</el-button>
+        </span>
       </el-form-item>
     </el-form>
 
@@ -58,6 +48,7 @@
 
 <script>
 import { getDate } from '@/utils/convert'
+import {IMG_URL} from "@/config/config";
 const basePrefix = '/ums-user'
 export default {
   name: 'UserEdit',
@@ -71,38 +62,25 @@ export default {
   data() {
     return {
       fileList: [],
-      submitUrl: 'user/add',
+      submitUrl: basePrefix+'/add',
       operation: -1, // 0 增加 1 修改
       formData: {
         id: -1,
         nickname: '',
         rawPassword: '',
-        email: '',
-        phone: '',
-        birthday: null,
         file: null
       },
       rules: {
-        nickname: [
+        username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
+          { min: 3, max: 8, message: '长度在 3 到 8 个字符', trigger: 'blur' }
+        ],
+        nickname: [
+          { required: true, message: '请输入用户昵称', trigger: 'blur' },
           { min: 3, max: 8, message: '长度在 3 到 8 个字符', trigger: 'blur' }
         ],
         rawPassword: [
           { required: true, message: '请输入密码', trigger: 'blur' }
-        ],
-        email: [
-          { required: true, message: '请输入邮箱', trigger: 'blur' },
-          { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
-        ],
-        phone: [
-          { required: true, message: '请输入电话', trigger: 'change' },
-          {
-            pattern: /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/,
-            message: '电话格式不正确',
-            trigger: 'blur'
-          }
-        ], birthday: [
-          { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
         ], file: []
 
       }
@@ -122,12 +100,11 @@ export default {
     },
     updateEdit() {
       this.submitUrl = basePrefix + '/update'
-      this.$get(basePrefix + '/get_one', { id: this.id }, obj => {
+      this.get(basePrefix + '/get_one', { id: this.id }, obj => {
         this.id = obj.id
         this.formData = obj
-        this.formData.birthday = getDate(obj.birthday)
         this.fileList.push({
-          name: obj.img, url: this.$img(obj.img)
+          name: obj.img, url: IMG_URL+obj.img
         })
       })
     },
@@ -142,7 +119,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$post(this.submitUrl, this.formData, resp => {
+          this.post(this.submitUrl, this.formData, resp => {
             this.$emit('closeMyDialog', true)
           })
           this.$refs[formName].resetFields()
