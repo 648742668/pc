@@ -38,7 +38,12 @@
         label="用户名"
         width="180"
       />
-
+      <el-table-column
+        align="center"
+        prop="phone"
+        label="手机号"
+        width="180"
+      />
       <el-table-column
         align="center"
         prop="file"
