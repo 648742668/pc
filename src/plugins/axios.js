@@ -6,6 +6,7 @@ import {Loading, Notification} from "element-ui";
 import store from '@/store'
 import qs from 'qs'
 import {BASE_URL} from "@/config/config";
+import {getToken} from "@/utils/auth";
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
@@ -23,10 +24,11 @@ const _axios = axios.create(config);
 //请求过滤器
 _axios.interceptors.request.use(
   function (config) {
-    // Do something before request is sent
-    // if (store.getters.GET_TOKEN){
-    //   config.headers['token'] = store.getters.GET_TOKEN
-    // }
+    //Do something before request is sent
+    if (store.getters.token){
+      config.headers['token'] = getToken()
+    }
+    config.headers['where'] = 'pc' // 1 pc
     //重新定义数组序列化
     config.paramsSerializer = (params) =>{
       return qs.stringify(params,{arrayFormat: 'repeat'})
@@ -90,6 +92,7 @@ const request = (url, method, params, callback) => {
       })
     }
   }).catch(error => {
+    console.log(error)
     Notification.error({
       title: '错误',
       message: error
@@ -110,10 +113,13 @@ Vue.prototype.get = (url, params, callback) => {
 
 Vue.prototype.post = (url, params, callback) => {
   request(url, 'post', params,response =>{
-    Notification.success({
-      title: '成功',
-      message: response.message
-    })
+    if (response.message){
+      Notification.success({
+        title: '成功',
+        message: response.message
+      })
+    }
+
     callback(response.data)
   })
 }

@@ -44,9 +44,11 @@
           </span>
         </el-form-item>
       </el-tooltip>
+      <div>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
-
+        <el-button @click="goFPWD" type="primary" style="float: left">忘记密码</el-button>
+        <el-button  :loading="loading" type="primary" style="width:50%;margin-bottom:30px;float: right" @click.native.prevent="handleLogin">登录</el-button>
+      </div>
 
     </el-form>
   </div>
@@ -62,14 +64,14 @@ export default {
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+        callback(new Error('请输入正确的用户名'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 4) {
-        callback(new Error('The password can not be less than 6 digits'))
+        callback(new Error('密码不能少于四位'))
       } else {
         callback()
       }
@@ -117,6 +119,9 @@ export default {
     // window.removeEventListener('storage', this.afterQRScan)
   },
   methods: {
+    goFPWD(){
+      this.$router.push("/forget_pwd")
+    },
     checkCapslock(e) {
       const { key } = e
       this.capsTooltip = key && key.length === 1 && (key >= 'A' && key <= 'Z')
