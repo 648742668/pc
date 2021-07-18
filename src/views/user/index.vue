@@ -46,6 +46,12 @@
       />
       <el-table-column
         align="center"
+        prop="email"
+        label="邮箱"
+        width="180"
+      />
+      <el-table-column
+        align="center"
         prop="file"
         label="头像"
       >
