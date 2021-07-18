@@ -15,12 +15,14 @@
         <el-input v-model="formData.nickname" size="small"/>
       </el-form-item>
       <el-form-item label="密码" class="dialog-item inline" prop="rawPassword">
-        <el-input v-model="formData.rawPassword" size="small"/>
+        <el-input v-model="formData.rawPassword" size="small" type="password"/>
       </el-form-item>
       <el-form-item label="手机号" class="dialog-item inline" prop="phone" style="float: right">
         <el-input v-model="formData.phone" size="small"/>
       </el-form-item>
-
+      <el-form-item label="邮箱" class="dialog-item inline" prop="email">
+        <el-input v-model="formData.email" size="small"/>
+      </el-form-item>
       <el-form-item label="头像" prop="file">
         <el-upload
           :file-list="fileList"
@@ -73,12 +75,17 @@
           rawPassword: '',
           username: "",
           phone: "",
-          file: null
+          file: null,
+          email:""
         },
         rules: {
           username: [
             {required: true, message: '请输入用户名', trigger: 'blur'},
             {min: 3, max: 8, message: '长度在 3 到 8 个字符', trigger: 'blur'}
+          ],
+          email: [
+            {required: true, message: '请输入邮箱', trigger: 'blur'},
+            {type: "email", message: '邮箱格式不正确', trigger: 'blur'}
           ],
           nickname: [
             {required: true, message: '请输入用户昵称', trigger: 'blur'},
@@ -120,6 +127,7 @@
           this.formData.nickname = obj.nickname
           this.formData.phone = obj.phone
           this.formData.rawPassword = ""
+          this.formData.email = obj.email
           this.fileList.push({
             name: obj.img, url: IMG_URL + obj.img
           })

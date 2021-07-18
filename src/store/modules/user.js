@@ -31,22 +31,22 @@ const mutations = {
 const actions = {
   // user login
   login({commit}, userInfo) {
-    // return new Promise((resolve, reject) => {
-    //   const {username, password} = userInfo
-    //   login({ username: username.trim(), password: password }).then(response => {
-    //     const { data } = response
-    //     commit('SET_TOKEN', data.token)
-    //     setToken(data.token)
-    //     resolve()
-    //   }).catch(error => {
-    //     reject(error)
-    //   })
-    // })
     return new Promise((resolve, reject) => {
-      commit('SET_TOKEN', 'admin-token')
-      setToken('admin-token')
-      resolve()
+      const {username, password} = userInfo
+      login({ username: username.trim(), password: password }).then(response => {
+        const { data } = response
+        commit('SET_TOKEN', data.token)
+        setToken(data.token)
+        resolve()
+      }).catch(error => {
+        reject(error)
+      })
     })
+    // return new Promise((resolve, reject) => {
+    //   commit('SET_TOKEN', 'admin-token')
+    //   setToken('admin-token')
+    //   resolve()
+    // })
   },
 
   // get user info
@@ -104,8 +104,8 @@ const actions = {
 
   // user logout
   logout({commit, state, dispatch}) {
-    // return new Promise((resolve, reject) => {
-    //   logout(state.token).then(() => {
+    return new Promise((resolve, reject) => {
+      logout(state.token).then(() => {
         commit('SET_TOKEN', '')
         commit('SET_ROLES', [])
         removeToken()
@@ -115,11 +115,11 @@ const actions = {
         // to fixed https://github.com/PanJiaChen/vue-element-admin/issues/2485
         dispatch('tagsView/delAllViews', null, {root: true})
 
-        // resolve()
-      // }).catch(error => {
-      //   reject(error)
-      // })
-    // })
+        resolve()
+      }).catch(error => {
+        reject(error)
+      })
+    })
   },
 
   // remove token
