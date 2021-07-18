@@ -20,7 +20,8 @@ import './permission' // permission control
 import './utils/error-log' // error log
 
 import * as filters from './filters' // global filters
-
+import wyEditor from '@/components/editor'
+import {IMG_URL} from "@/config/config";
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -45,7 +46,13 @@ Object.keys(filters).forEach(key => {
 })
 
 Vue.config.productionTip = false
-
+Vue.prototype.img = (path) => {//从数据库得到的icon只是单纯的图片名字，需要在前面拼接一个图片服务器地址，才能找到图片。
+  return IMG_URL + path
+}
+//全局注册组件。
+// Vue.component('uploadone',uploadone)//前者是标签名
+// Vue.component('uploadmore',uploadmore)//前者同样是标签名
+Vue.component('WyEditor',wyEditor)
 new Vue({
   el: '#app',
   router,

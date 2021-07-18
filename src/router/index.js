@@ -174,6 +174,71 @@ export const asyncRoutes = [
     ]
   },
   {
+    path: '/product',
+    component: Layout,
+    redirect: '/product/product',
+    alwaysShow: true, // will always show the root menu
+    name: 'Product',
+    meta: {
+      title: '商品管理',
+      icon: 'peoples',
+      roles: ['admin', 'editor'] // you can set roles in root nav
+    },
+    children: [
+      {
+        path: 'product',
+        name: 'ProductList',
+        component: () => import('@/views/product'),
+        meta: {
+          title: '商品管理',
+          roles: ['admin']
+          // if do not set roles, means: this page does not require permission
+        },
+      },
+      {
+        path: 'brand',
+        name: 'BrandList',
+        component: () => import('@/views/brand'),
+        meta: {
+          title: '品牌管理',
+          roles: ['admin']
+          // if do not set roles, means: this page does not require permission
+        },
+      },
+      {
+        path: 'category',
+        name: 'CategoryList',
+        component: () => import('@/views/category'),
+        meta: {
+          title: '分类管理',
+          roles: ['admin']
+          // if do not set roles, means: this page does not require permission
+        }},
+      {
+        path: 'spu',
+        name: 'SpuList',
+        component: () => import('@/views/spu'),
+        hidden: true,
+        meta: {
+          title: 'spu管理',
+          roles: ['admin']
+          // if do not set roles, means: this page does not require permission
+        }
+      },
+      {
+        path: 'sku',
+        name: 'SkuList',
+        hidden: true,
+        component: () => import('@/views/sku'),
+        meta: {
+          title: 'sku管理',
+          roles: ['admin']
+          // if do not set roles, means: this page does not require permission
+        }
+      }
+    ]
+  },
+  {
     path: '/icon',
     component: Layout,
     children: [
@@ -187,10 +252,10 @@ export const asyncRoutes = [
   },
 
   /** when your routing map is too long, you can split it into small modules **/
-  componentsRouter,
-  chartsRouter,
-  nestedRouter,
-  tableRouter,
+  // componentsRouter,
+  // chartsRouter,
+  // nestedRouter,
+  // tableRouter,
 
   {
     path: '/example',
