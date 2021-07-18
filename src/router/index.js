@@ -1,16 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
-Vue.use(Router)
-
 /* Layout */
 import Layout from '@/layout'
-
 /* Router Modules */
 import componentsRouter from './modules/components'
 import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
 import nestedRouter from './modules/nested'
+
+Vue.use(Router)
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -134,7 +132,7 @@ export const asyncRoutes = [
           title: '关联用户',
           roles: ['admin']
           // if do not set roles, means: this page does not require permission
-        },
+        }
       },
       {
         path: 'role_resource',
@@ -145,7 +143,7 @@ export const asyncRoutes = [
           title: '关联权限',
           roles: ['admin']
           // if do not set roles, means: this page does not require permission
-        },
+        }
       },
       {
         path: 'role_list',
@@ -155,8 +153,8 @@ export const asyncRoutes = [
           title: '角色管理',
           roles: ['admin']
           // if do not set roles, means: this page does not require permission
-        },
-      },      {
+        }
+      }, {
         path: 'resource_list',
         component: () => import('@/views/resource/index'),
         name: 'ResourceList',
@@ -164,10 +162,35 @@ export const asyncRoutes = [
           title: '权限管理',
           roles: ['admin']
           // if do not set roles, means: this page does not require permission
-        },
-      },
+        }
+      }
     ]
   },
+  // 商品模块
+  {
+    path: '/product',
+    component: Layout,
+    redirect: 'noRedirect',
+    alwaysShow: true, // will always show the root menu
+    name: 'Product',
+    meta: {
+      title: '商品管理',
+      icon: 'shopping',
+      roles: ['admin', 'editor'] // you can set roles in root nav
+    },
+    children: [
+      {
+        path: 'order_list',
+        component: () => import('@/views/order/index'),
+        name: 'OrderList',
+        meta: {
+          title: '订单管理',
+          roles: ['admin'] // or you can only set roles in sub nav
+        }
+      }
+    ]
+  },
+
   {
     path: '/icon',
     component: Layout,
