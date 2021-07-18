@@ -85,12 +85,12 @@
         <template slot-scope="scope">
           <template v-if="scope.row.isActive===1">
 
-            <el-button @click="delActive(scope.row.id,0)" size="small" type="danger" style="margin-right: 20px">禁用
+            <el-button size="small" type="danger" style="margin-right: 20px" @click="delActive(scope.row.id,0)">禁用
             </el-button>
             <el-button size="small" type="warn" @click="openUpdateDialog(scope.row.id)">修改</el-button>
           </template>
           <template v-else>
-            <el-button @click="delActive(scope.row.id,1)" size="small" type="success" style="margin-right: 20px">启用
+            <el-button size="small" type="success" style="margin-right: 20px" @click="delActive(scope.row.id,1)">启用
             </el-button>
           </template>
         </template>
@@ -194,15 +194,17 @@ export default {
     },
     getTableData() {
       this.get(basePrefix + '/list', this.query, data => {
+        console.log('asd')
         this.tableData = data
+        console.log(this.tableData)
       })
     },
     delActive(id, active) {
-      let msg;
-      if (active ===0){
-        msg = "确定要禁用该用户"
-      }else {
-        msg = "确定要启用该用户"
+      let msg
+      if (active === 0) {
+        msg = '确定要禁用该用户'
+      } else {
+        msg = '确定要启用该用户'
       }
       this.$confirm(msg, '提示', {
         confirmButtonText: '确定',
@@ -214,8 +216,7 @@ export default {
         })
       }).catch(() => {
 
-      });
-
+      })
     }
   }
 }
