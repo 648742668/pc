@@ -171,30 +171,6 @@ export const asyncRoutes = [
   {
     path: '/product',
     component: Layout,
-    redirect: 'noRedirect',
-    alwaysShow: true, // will always show the root menu
-    name: 'Product',
-    meta: {
-      title: '商品管理',
-      icon: 'shopping',
-      roles: ['admin', 'editor'] // you can set roles in root nav
-    },
-    children: [
-      {
-        path: 'order_list',
-        component: () => import('@/views/order/index'),
-        name: 'OrderList',
-        meta: {
-          title: '订单管理',
-          roles: ['admin'] // or you can only set roles in sub nav
-        }
-      }
-    ]
-  },
-
-  {
-    path: '/product',
-    component: Layout,
     redirect: '/product/product',
     alwaysShow: true, // will always show the root menu
     name: 'Product',
@@ -232,6 +208,14 @@ export const asyncRoutes = [
           title: '分类管理',
           roles: ['admin']
           // if do not set roles, means: this page does not require permission
+        }},
+      {
+        path: 'order_list',
+        component: () => import('@/views/order/index'),
+        name: 'OrderList',
+        meta: {
+          title: '订单管理',
+          roles: ['admin'] // or you can only set roles in sub nav
         }},
       {
         path: 'spu',
