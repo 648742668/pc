@@ -21,6 +21,7 @@
       </el-button>
     </div>
     <el-table
+      max-height="500px"
       :data="tableData.records"
       style="width: 100%">
       <el-table-column
@@ -60,7 +61,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="block" style="float: right">
+    <div class="block" style="float: right;position: absolute;right: 30px;bottom: 30px">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"

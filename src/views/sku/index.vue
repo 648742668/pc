@@ -1,12 +1,13 @@
 <template>
 	<div style="padding: 30px">
 		<div class="wy_filter" style="margin-bottom: 20px">
-			<el-button size="small" type="primary" plain icon="el-icon-plus" style="float: right;" @click="add"></el-button>
+			<el-button size="small" type="primary" style="float: right;" @click="add">新增</el-button>
 			<div class="clear"></div>
 		</div>
 		<el-table
+      max-height="500px"
 			:data="tableData"
-			border>
+    >
 			<el-table-column label="编号" prop="id"></el-table-column>
 			<el-table-column label="属性名" prop="name"></el-table-column>
 			<el-table-column label="列表">

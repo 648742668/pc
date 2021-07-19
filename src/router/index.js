@@ -92,7 +92,7 @@ export const constantRoutes = [
         path: 'index',
         component: () => import('@/views/profile/index'),
         name: 'Profile',
-        meta: { title: 'Profile', icon: 'user', noCache: true }
+        meta: { title: '个人信息', icon: 'user', noCache: true }
       }
     ]
   }
@@ -112,7 +112,7 @@ export const asyncRoutes = [
     meta: {
       title: '用户管理',
       icon: 'peoples',
-      roles: ['admin', 'editor'] // you can set roles in root nav
+      roles: ['admin', 'ums'] // you can set roles in root nav
     },
     children: [
       {
@@ -121,7 +121,7 @@ export const asyncRoutes = [
         name: 'UserList',
         meta: {
           title: '用户管理',
-          roles: ['admin'] // or you can only set roles in sub nav
+          roles: ['admin', 'ums'] // or you can only set roles in sub nav
         }
       },
       {
@@ -131,7 +131,7 @@ export const asyncRoutes = [
         hidden: true,
         meta: {
           title: '关联用户',
-          roles: ['admin']
+          roles: ['admin', 'ums']
           // if do not set roles, means: this page does not require permission
         }
       },
@@ -142,7 +142,7 @@ export const asyncRoutes = [
         hidden: true,
         meta: {
           title: '关联权限',
-          roles: ['admin']
+          roles: ['admin', 'ums']
           // if do not set roles, means: this page does not require permission
         }
       },
@@ -152,7 +152,7 @@ export const asyncRoutes = [
         name: 'RoleList',
         meta: {
           title: '角色管理',
-          roles: ['admin']
+          roles: ['admin', 'ums']
           // if do not set roles, means: this page does not require permission
         }
       }, {
@@ -161,7 +161,7 @@ export const asyncRoutes = [
         name: 'ResourceList',
         meta: {
           title: '权限管理',
-          roles: ['admin']
+          roles: ['admin', 'ums']
           // if do not set roles, means: this page does not require permission
         }
       }
@@ -177,7 +177,7 @@ export const asyncRoutes = [
     meta: {
       title: '商品管理',
       icon: 'product', // asd
-      roles: ['admin', 'editor'] // you can set roles in root nav
+      roles: ['admin', 'pms'] // you can set roles in root nav
     },
     children: [
       {
@@ -186,7 +186,7 @@ export const asyncRoutes = [
         component: () => import('@/views/product'),
         meta: {
           title: '商品管理',
-          roles: ['admin']
+          roles: ['admin', 'pms']
           // if do not set roles, means: this page does not require permission
         }
       },
@@ -196,7 +196,7 @@ export const asyncRoutes = [
         component: () => import('@/views/brand'),
         meta: {
           title: '品牌管理',
-          roles: ['admin']
+          roles: ['admin', 'pms']
           // if do not set roles, means: this page does not require permission
         }
       },
@@ -206,7 +206,7 @@ export const asyncRoutes = [
         component: () => import('@/views/category'),
         meta: {
           title: '分类管理',
-          roles: ['admin']
+          roles: ['admin', 'pms']
           // if do not set roles, means: this page does not require permission
         }},
       {
@@ -215,7 +215,7 @@ export const asyncRoutes = [
         name: 'OrderList',
         meta: {
           title: '订单管理',
-          roles: ['admin'] // or you can only set roles in sub nav
+          roles: ['admin', 'pms'] // or you can only set roles in sub nav
         }},
       {
         path: 'spu',
@@ -224,7 +224,7 @@ export const asyncRoutes = [
         hidden: true,
         meta: {
           title: 'spu管理',
-          roles: ['admin']
+          roles: ['admin', 'pms']
           // if do not set roles, means: this page does not require permission
         }
       },
@@ -235,7 +235,7 @@ export const asyncRoutes = [
         component: () => import('@/views/sku'),
         meta: {
           title: 'sku管理',
-          roles: ['admin']
+          roles: ['admin', 'pms']
           // if do not set roles, means: this page does not require permission
         }
       }
@@ -250,7 +250,7 @@ export const asyncRoutes = [
     meta: {
       title: '数据查看',
       icon: 'table',
-      roles: ['admin', 'editor'] // you can set roles in root nav
+      roles: ['admin', 'dms'] // you can set roles in root nav
     },
     children: [
       {
@@ -262,7 +262,7 @@ export const asyncRoutes = [
         component: () => import('@/views/lxdorder'),
         meta: {
           title: '订单信息',
-          roles: ['admin', 'editor'] // you can set roles in root nav
+          roles: ['admin', 'dms'] // you can set roles in root nav
         }
       },
       {
@@ -274,7 +274,7 @@ export const asyncRoutes = [
         component: () => import('@/views/lxdstock'),
         meta: {
           title: '库存信息',
-          roles: ['admin', 'editor'] // you can set roles in root nav
+          roles: ['admin', 'dms'] // you can set roles in root nav
         }
       },
       {
@@ -286,7 +286,7 @@ export const asyncRoutes = [
         component: () => import('@/views/lxduser'),
         meta: {
           title: '用户访问',
-          roles: ['admin', 'editor'] // you can set roles in root nav
+          roles: ['admin', 'dms'] // you can set roles in root nav
         }
       },
       {
@@ -298,7 +298,7 @@ export const asyncRoutes = [
         component: () => import('@/views/lxdconsumer'),
         meta: {
           title: '消费者访问',
-          roles: ['admin', 'editor'] // you can set roles in root nav
+          roles: ['admin', 'dms'] // you can set roles in root nav
         }
       }
     ]

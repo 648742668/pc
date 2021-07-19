@@ -2,10 +2,10 @@
 	<div>
 		<el-form ref="myform" :model="form" label-width="80px" :rules="rules">
 			<el-form-item label="属性名" prop="name">
-				<el-input v-model="form.name"></el-input>
+				<el-input v-model="form.name" size="small"> </el-input>
 			</el-form-item>
 			<el-form-item label="选择列表" prop="inputList">
-				<el-input type="textarea" :rows="5" v-model="form.inputList"></el-input>
+				<el-input type="textarea" :rows="5" v-model="form.inputList" size="small"></el-input>
 			</el-form-item>
 			<el-form-item label="动态添加">
 				<el-radio-group v-model="form.addType">
@@ -14,7 +14,7 @@
 				</el-radio-group>
 			</el-form-item>
 			<el-form-item>
-				<el-button type="primary" plain @click="save">保存</el-button>
+				<el-button type="primary"  @click="save" size="small" style="float: right">保存</el-button>
 			</el-form-item>
 		</el-form>
 	</div>
@@ -37,7 +37,7 @@
 			this.form.categoryId = this.categoryId
 			if(this.id) {
 				this.getone()
-			} 
+			}
 		},
 		data() {
 			const module = '/sku'
@@ -71,7 +71,7 @@
 						this.post(this.id ? this.url.update : this.url.add,this.form,() => {
 							this.$emit('update:show', false)
 							this.$emit('getTableData')
-						}) 
+						})
 					}
 				})
 			},
@@ -88,4 +88,8 @@
 </script>
 
 <style>
+  .el-dialog__body{
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
 </style>

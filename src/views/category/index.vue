@@ -1,13 +1,15 @@
 <template>
 	<div style="padding: 30px">
 		<div class="wy_filter" style="margin-bottom: 30px">
-			<el-button type="primary" size="small" plain icon="el-icon-plus" style="float: right;" @click="add(0,1)"></el-button>
-			<div class="clear"></div>
+			<el-button type="primary" size="small"  style="float: right;" @click="add(0,1)">
+        增加
+      </el-button>
 		</div>
 		<el-table
+      max-height="500px"
 			:data="tableData"
 			row-key="id"
-			border>
+			>
 			<el-table-column label="编号" prop="id" align="center"></el-table-column>
 			<el-table-column label="分类名称" prop="name" align="center"></el-table-column>
       <el-table-column label="分类图片" align="center">
@@ -34,7 +36,7 @@
 								</template>
 							</template>
 						</el-table-column>
-			<el-table-column width="235px" align="center">
+			<el-table-column width="235px" align="center" prop="操作">
 				<template slot-scope="scope">
 					<template v-if="scope.row.isActive === 1">
 						<el-button type="primary" plain @click="add(scope.row.id, scope.row.level + 1)" size="mini">添加下级</el-button>

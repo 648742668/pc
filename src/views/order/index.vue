@@ -2,6 +2,7 @@
   <div v-loading.fullscreen.lock="fullscreenLoading" class="container">
     <div>
       <el-input
+
         v-model="query.orderId"
         size="small"
         class="id-search"
@@ -15,6 +16,7 @@
       </el-button>
     </div>
     <el-table
+      max-height="500px"
       :data="tableData.records"
       style="width: 100%"
     >
@@ -36,14 +38,6 @@
         label="订单价格"
         width="180"
       />
-      <!--      <el-table-column-->
-      <!--        align="center"-->
-      <!--        prop="createTime"-->
-      <!--        label="订单创建时间">-->
-      <!--        <template slot-scope="scope">-->
-      <!--          {{ scope.row.createTime | dateFormat }}-->
-      <!--        </template>-->
-      <!--      </el-table-column>-->
       <el-table-column
         align="center"
         prop="status"
@@ -85,7 +79,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="block" style="float: right">
+    <div class="block" style="float: right;position: absolute;right: 30px;bottom: 30px">
       <el-pagination
         :current-page="query.pageNum"
         :page-sizes="[10, 15, 25, 30]"
@@ -99,7 +93,7 @@
 
     <el-dialog
       :close-on-click-modal="false"
-      width="450px"
+      width="500px"
       :title="dialog.title"
       :visible.sync="dialog.show"
       @close="closeDialog"
@@ -116,9 +110,9 @@
 </template>
 
 <script>
-import orderInfo from './component/orderInfo'
+  import orderInfo from './component/orderInfo'
 
-export default {
+  export default {
   name: 'OrderList',
   components: {
     orderInfo
@@ -169,7 +163,6 @@ export default {
       this.query.pageNum = 1
       this.get(this.url.list, this.query, obj => {
         this.tableData.records = obj.records
-        console.log(this.tableData.records.length)
       })
       // 消息提示过快
       // let len = this.tableData.records.length

@@ -23,6 +23,7 @@
       </el-button>
     </div>
     <el-table
+      max-height="500px"
       :data="tableData.records"
       style="width: 100%"
     >
@@ -96,7 +97,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="block" style="float: right">
+    <div class="block" style="float: right;position: absolute;right: 30px;bottom: 30px">
       <el-pagination
         :current-page="query.pageNum"
         :page-sizes="[10, 15, 25, 30]"
@@ -126,10 +127,10 @@
 </template>
 
 <script>
-import UserEdit from './component/UserEdit'
-import { IMG_URL } from '@/config/config'
+  import UserEdit from './component/UserEdit'
+  import { IMG_URL } from '@/config/config'
 
-const basePrefix = '/ums-user'
+  const basePrefix = '/ums-user'
 export default {
   name: 'UserList',
   components: {

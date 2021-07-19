@@ -5,7 +5,6 @@
                     :data="tableData"
                     row-key="id"
                     style="width: 100%;margin-bottom: 20px;"
-                    border
                     :tree-props="{children: 'children'}">
                     border>
                 <el-table-column label="编号" prop="id"></el-table-column>

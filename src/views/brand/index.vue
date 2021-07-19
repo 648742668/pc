@@ -2,13 +2,14 @@
 	<div style="padding: 30px">
 		<div class="wy_filter" style="margin-bottom: 20px">
 			<el-input v-model="query.name" placeholder="请输入要查询的品牌名" size="small"  style="width: auto"></el-input>
-			<el-button type="primary" plain icon="el-icon-search" @click="search" size="small">查询</el-button>
-			<el-button type="primary" plain icon="el-icon-plus" style="float: right;" @click="add" size="small"></el-button>
+			<el-button type="primary" plain icon="el-icon-search" @click="search" size="small" style="margin-left: 30px">查询</el-button>
+			<el-button type="primary" plain  style="float: right;" @click="add" size="small">增加</el-button>
 			<div class="clear"></div>
 		</div>
 		<el-table
+      max-height="500px"
 			:data="tableData.records"
-			border>
+			>
 			<el-table-column label="编号" prop="id" align="center"></el-table-column>
 			<el-table-column label="品牌名" prop="name" align="center"></el-table-column>
 			<el-table-column label="首字母" prop="firstLetter" align="center"></el-table-column>
@@ -26,7 +27,7 @@
 					<span v-else>无效</span>
 				</template>
 			</el-table-column>
-			<el-table-column width="150px" align="center">
+			<el-table-column width="150px" align="center" label="操作">
 				<template slot-scope="scope">
 					<template v-if="scope.row.isactive === 1">
 						<el-button type="primary" plain @click="update(scope.row.id)" size="mini">修改</el-button>
@@ -38,13 +39,16 @@
 				</template>
 			</el-table-column>
 		</el-table>
-		<el-pagination
-			background
-			:current-page.sync="query.pageNo"
-			layout="prev, pager, next"
-			:page-count="tableData.pages"
-			@current-change="getTableData">
-		</el-pagination>
+    <div style="float: right;position: absolute;right: 30px;bottom: 30px">
+      <el-pagination
+        background
+        :current-page.sync="query.pageNo"
+        layout="prev, pager, next"
+        :page-count="tableData.pages"
+        @current-change="getTableData">
+      </el-pagination>
+    </div>
+
 		<el-dialog
 			width="450px"
 			:title="userDialog.title"

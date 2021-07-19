@@ -2,10 +2,10 @@
 	<div>
 		<el-form ref="myform" :model="form" label-width="80px" :rules="rules">
 			<el-form-item label="属性名" prop="name">
-				<el-input v-model="form.name"></el-input>
+				<el-input v-model="form.name" size="small"></el-input>
 			</el-form-item>
 			<el-form-item>
-				<el-button type="primary" plain @click="save">保存</el-button>
+				<el-button type="primary" size="small" @click="save" style="float:right;">保存</el-button>
 			</el-form-item>
 		</el-form>
 	</div>
@@ -28,7 +28,7 @@
 			this.form.categoryId = this.categoryId
 			if(this.id) {
 				this.getone()
-			} 
+			}
 		},
 		data() {
 			const module = '/spu'
@@ -57,7 +57,7 @@
 						this.post(this.id ? this.url.update : this.url.add,this.form,() => {
 							this.$emit('update:show', false)
 							this.$emit('getTableData')
-						}) 
+						})
 					}
 				})
 			},

@@ -1,46 +1,58 @@
 <template>
-  <div>
-    <el-form :model="form" label-width="80px">
-      <el-form-item label="订单号" prop="orderId">
-        <el-input v-model="form.orderId" disabled />
-      </el-form-item>
-      <el-form-item label="顾客昵称" prop="nickName">
-        <el-input v-model="form.nickName" disabled />
-      </el-form-item>
-      <el-form-item label="创建时间" prop="createTime">
-        <el-input v-model="form.createTime" disabled />
-      </el-form-item>
-      <el-form-item label="支付时间" prop="payTime">
-        <el-input v-model="form.payTime" disabled />
-      </el-form-item>
-      <!--        <el-form-item label="订单状态" prop="status">-->
-      <!--          <el-input v-model="form.status"></el-input>-->
-      <!--        </el-form-item>-->
-      <el-form-item label="订单总价" prop="total">
-        <el-input v-model="form.total" disabled />
-      </el-form-item>
-      <el-form-item label="地址-省份" prop="province">
-        <el-input v-model="form.province" disabled />
-      </el-form-item>
-      <el-form-item label="地址-城市" prop="city">
-        <el-input v-model="form.city" disabled />
-      </el-form-item>
-      <el-form-item label="地址-县城" prop="county">
-        <el-input v-model="form.county" disabled />
-      </el-form-item>
-      <el-form-item label="地址详情" prop="address">
-        <el-input v-model="form.address" disabled />
-      </el-form-item>
-      <el-form-item label="收件人" prop="recv_name">
-        <el-input v-model="form.recv_name" disabled />
-      </el-form-item>
-      <el-form-item label="收件号码" prop="recv_phone">
-        <el-input v-model="form.recv_phone" disabled />
-      </el-form-item>
-      <el-form-item v-for="(o,index) in form.items" :key="index" label="订单项">
-        <el-input disabled :value="getValue(o)" />
-      </el-form-item>
-    </el-form>
+  <div style="height: 500px">
+    <el-scrollbar style="height: 100%;">
+      <el-form :model="form" label-width="80px" label-position="top" >
+        <el-form-item label="订单号" prop="orderId" class="inline">
+          <span>{{form.orderId}}</span>
+          <!--        <el-input v-model="form.orderId" disabled />-->
+        </el-form-item>
+        <el-form-item label="顾客昵称" prop="nickName" class="inline">
+          <span>{{form.nickName}}</span>
+          <!--        <el-input v-model="form.nickName" disabled />-->
+        </el-form-item>
+        <el-form-item label="创建时间" prop="createTime" class="inline">
+          <span>{{form.createTime}}</span>
+        </el-form-item>
+        <el-form-item label="支付时间" prop="payTime" class="inline">
+          <span>{{form.payTime}}</span>
+        </el-form-item>
+        <el-form-item label="订单总价" prop="total" >
+          <span>{{form.total}}</span>
+        </el-form-item>
+        <el-form-item label="地址-省份" prop="province" class="inline">
+          <span>{{form.province}}</span>
+        </el-form-item>
+        <el-form-item label="地址-城市" prop="city" class="inline">
+          <span>{{form.city}}</span>
+        </el-form-item>
+        <el-form-item label="地址-县城" prop="county"  class="inline">
+          <span>{{form.county}}</span>
+        </el-form-item>
+        <el-form-item label="地址详情" prop="address" class="inline">
+          <span>{{form.address}}</span>
+        </el-form-item>
+        <el-form-item label="收件人" prop="recv_name" class="inline">
+          <span>{{form.recv_name}}</span>
+        </el-form-item>
+        <el-form-item label="收件号码" prop="recv_phone" class="inline">
+          <span>{{form.recv_name}}</span>
+        </el-form-item>
+        <el-form-item label="订单项" prop="recv_phone">
+          <el-table :data="form.items" border>
+            <el-table-column prop="name" label="商品名" align="center"></el-table-column>
+            <el-table-column prop="count" label="数量" align="center" width="50px"></el-table-column>
+            <el-table-column prop="price" label="价格" align="center" width="100px"></el-table-column>
+            <el-table-column label="列表" align="center">
+              <template slot-scope="scope">
+                <el-tag size="mini" :key="index" v-for="(item,index) in scope.row.items" style="margin-right: 5px">{{item.value}}</el-tag>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-form-item>
+      </el-form>
+
+    </el-scrollbar>
+
   </div>
 </template>
 
@@ -113,13 +125,20 @@ export default {
   }
 
   .el-form-item {
-    margin-bottom: 10px;
+    margin-bottom: 0;
 
     .el-form-item__label {
       padding-bottom: 0;
     }
   }
-
+.el-dialog__body{
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.el-form-item__content{
+  height: 30px;
+  line-height: 30px;
+}
   .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;
@@ -145,5 +164,8 @@ export default {
     width: 178px;
     height: 178px;
     display: block;
+  }
+  .el-scrollbar__wrap {
+    overflow-x: hidden;
   }
 </style>

@@ -17,19 +17,19 @@
       </router-link>
     </scroll-pane>
     <ul v-show="visible" :style="{left:left+'px',top:top+'px'}" class="contextmenu">
-      <li @click="refreshSelectedTag(selectedTag)">Refresh</li>
-      <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">Close</li>
-      <li @click="closeOthersTags">Close Others</li>
-      <li @click="closeAllTags(selectedTag)">Close All</li>
+      <li @click="refreshSelectedTag(selectedTag)">刷新</li>
+      <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">关闭当前选项卡</li>
+      <li @click="closeOthersTags">关闭其他选项卡</li>
+      <li @click="closeAllTags(selectedTag)">关闭全部</li>
     </ul>
   </div>
 </template>
 
 <script>
-import ScrollPane from './ScrollPane'
-import path from 'path'
+  import ScrollPane from './ScrollPane'
+  import path from 'path'
 
-export default {
+  export default {
   components: { ScrollPane },
   data() {
     return {
