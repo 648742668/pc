@@ -1,12 +1,13 @@
 <template>
 	<div style="padding: 30px">
-		<div class="wy_filter" style="margin-bottom: 20px">
-			<el-button type="primary" plain icon="el-icon-plus" style="float: right;" @click="add"></el-button>
+		<div class="wy_filter">
+			<el-button type="primary" size="small" style="float: right;" @click="add">增加</el-button>
 			<div class="clear"></div>
 		</div>
 		<el-table
 			:data="tableData.records"
-			border>
+      max-height="500px"
+			>
 			<el-table-column label="编号" prop="id" align="center"></el-table-column>
 			<el-table-column label="名称" prop="name" align="center"></el-table-column>
 			<el-table-column label="价格" prop="price" align="center"></el-table-column>
@@ -66,6 +67,7 @@
 				</template>
 			</el-table-column>
 		</el-table>
+    <div class="block" style="float: right;position: absolute;right: 30px;bottom: 30px">
 		<el-pagination
 					background
 					:current-page.sync="query.pageNo"
@@ -73,6 +75,7 @@
 					:page-count="tableData.pages"
 					@current-change="getTableData">
 				</el-pagination>
+    </div>
 		<el-dialog
 			width="750px"
 			:title="userDialog.title"

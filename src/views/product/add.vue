@@ -1,5 +1,6 @@
 <template>
-	<div>
+	<div style="height: 400px">
+    <el-scrollbar style="height: 100%;">
 		<el-steps :active="flag" align-center>
 			<el-step v-for="item in tabs" :title="item.title" :key="item.title"></el-step>
 		</el-steps>
@@ -20,6 +21,7 @@
 				@save="save"
 				:key="item.title"></component>
 		</div>
+    </el-scrollbar>
 	</div>
 </template>
 
@@ -40,7 +42,7 @@
 				this.getone()
 				this.getData()
 			} else {//无id，说明是新增。
-				this.getData(),
+				this.getData()
 				this.url.save = '/product/add'
 			}
 		},
@@ -72,10 +74,10 @@
 					keywords:'',
 					img:'',
 					pics:''
-					
+
 				},//这里存储的是从后端的product读上来的数据。
 				form: {
-					
+
 				},
 				idd:-1
 			}
@@ -102,7 +104,8 @@
 			//最终的提交按钮触发的函数
 			save() {
 				//手动添加id
-				this.form.id = this.idd
+				//this.form.id = this.idd
+				console.log(this.stocks,'stockssssss')
 				this.post(this.url.save,this.form,(response) => {
 					console.log(this.url.save)
 					this.$emit('aftersave')
@@ -148,4 +151,7 @@
 </script>
 
 <style>
+  .el-scrollbar__wrap {
+    overflow-x: hidden;
+  }
 </style>

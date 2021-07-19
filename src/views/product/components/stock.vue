@@ -1,15 +1,15 @@
 <template>
-	<div>
+	<div >
 		<el-table
 			:data="stocks">
 			<el-table-column label="库存数">
 				<template slot-scope="scope">
-					<el-input v-model="scope.row.stock"></el-input>
+					<el-input v-model="scope.row.stock" size="small"></el-input>
 				</template>
 			</el-table-column>
 			<el-table-column label="单价">
 				<template slot-scope="scope">
-					<el-input v-model="scope.row.price"></el-input>
+					<el-input v-model="scope.row.price" size="small"></el-input>
 				</template>
 			</el-table-column>
 			<el-table-column v-for="item in skus" :key="item.id" :label="item.name">
@@ -21,19 +21,17 @@
 			</el-table-column>
 		</el-table>
 		<div style="margin-top: 20px;">
-			<el-button @click="prev" size="small">上一步</el-button>
+			<el-button @click="prev"  size="small">上一步</el-button>
 			<el-button type="primary" size="small" @click="next">下一步</el-button>
 		</div>
+    </el-scrollbar>
 	</div>
 </template>
 
 <script>
 export default {
   name: 'Stock',
-  created() {
-    console.log(this.skus)
-  },
-  props: {
+	props: {
 		stocks: {
 			type: Array,
 			default: () => {return []}
@@ -66,6 +64,7 @@ export default {
 				}
 			}
 			const stocks = []
+			console.log(this.stocks,'stocks')
 			for(let i = 0; i < this.stocks.length; i++) {
 				stocks.push(JSON.stringify(this.stocks[i]))
 			}

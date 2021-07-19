@@ -4,7 +4,7 @@
 			<el-form-item label="分类名称" prop="name">
 				<el-input v-model="form.name"></el-input>
 			</el-form-item>
-      <el-form-item label="头像" prop="file">
+      <el-form-item label="logo" prop="file">
         <el-upload
           :file-list="fileList"
           action="#"
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-	import {IMG_URL} from "@/config/config";
+  import { IMG_URL } from '@/config/config'
 
   export default {
 		name: 'CategoryEdit',

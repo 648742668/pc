@@ -1,25 +1,26 @@
 <template>
 	<div>
 		<el-form ref="form" :rules="rules" :model="form" label-width="100px">
-			<el-form-item label="商品分类" prop="categoryId">
-				<el-cascader 
-					v-model="form.categoryId" 
+			<el-form-item label="商品分类" prop="categoryId" size="small">
+				<el-cascader
+          placeholder="请选择分类"
+					v-model="form.categoryId"
 					:options="params.categorys"
 					:props="{label: 'name', value: 'id'}"
 					@change="change"></el-cascader>
 			</el-form-item>
-			<el-form-item 
-				v-for="item in form.spus" 
-				:key="item.name" 
+			<el-form-item
+				v-for="item in form.spus"
+				:key="item.name"
 				:label="item.name">
-				<el-input v-model="item.value"></el-input>
+				<el-input v-model="item.value" size="small"></el-input>
 			</el-form-item>
 			<el-form-item>
-				<el-button @click="prev">上一步</el-button>
+				<el-button @click="prev" size="small">上一步</el-button>
 				<el-button type="primary" size="small" @click="next">下一步</el-button>
 			</el-form-item>
 		</el-form>
-		
+
 	</div>
 </template>
 
@@ -38,28 +39,43 @@ export default {
 			default: () => {return []}
 		}
 	},
-	created() {
-		//写死的获得种类的方法......实际上可以动态查...等我醒了再写吧。。。
-		this.form.categoryId = [1,2,3]
-		this.change(this.form.categoryId)
-	},
-  data() {
-    return {
-			form: {
-				categoryId: [],
-				spus: []
+	data() {
+		  const module = '/product'
+	  return {
+			url: {
+				getCategoryId: module + '/getCategoryId'
 			},
-			rules: {
-				categoryId: [
-					{required: true, message: '请选择商品分类', trigger: 'blur'}
-				]
-			}
-    }
-  },
+				form: {
+					categoryId: [],
+					spus: []
+				},
+				rules: {
+					categoryId: [
+						{required: true, message: '请选择商品分类', trigger: 'blur'}
+					]
+				}
+	  }
+	},
+	created() {
+		if(this.idd===-1){
+
+		}else{//如果idd不是-1，说明是修改操作，需要接收数据。
+		//this.form.categoryId = [1,2,3]
+		this.getCategoryId()
+		}
+
+	},
   methods: {
 	   //点击上一步触发的函数。
 		prev() {
 			this.$emit('prev')
+		},
+		getCategoryId(){
+			this.get(this.url.getCategoryId,{id: this.idd},response => {
+					this.form.categoryId = response
+					this.change(this.form.categoryId)
+
+			})
 		},
 		//点击“下一步”触发的函数。需要进行表单验证。
 		next() {
@@ -84,14 +100,14 @@ export default {
 			})
 		},
 		query() {
-			
+
 		},
 		//选择完种类之后触发的函数。需要根据种类得到具体的SPU和SKU。
 		change(categoryId) {
 			//每次修改前，先把原先数组置为空。不然每选择一次种类都是append。
 			this.form.spus = []
 			this.get('/product/getAttr',{categoryIds: categoryId,id:this.idd},response => {
-				//这一步是干嘛呢？是把从后端得到的spus数组，赋值给前端的spus数组。				
+				//这一步是干嘛呢？是把从后端得到的spus数组，赋值给前端的spus数组。
 				for(let i = 0; i < response.spus.length; i++) {
 					this.form.spus.push({name: response.spus[i].name,value: response.spus[i].value,id: response.spus[i].id})
 				}

@@ -2,24 +2,24 @@
 	<div>
 		<el-form ref="form" :model="form" :rules="rules" label-width="100px">
 			<el-form-item label="商品名称" prop="name">
-				<el-input v-model="form.name" placeholder="请输入商品名称"></el-input>
+				<el-input v-model="form.name" placeholder="请输入商品名称" size="small"></el-input>
 			</el-form-item>
 			<el-form-item label="标准价格" prop="price">
-				<el-input v-model="form.price" placeholder="请输入标准价格"></el-input>
+				<el-input v-model="form.price" placeholder="请输入标准价格" size="small"></el-input>
 			</el-form-item>
 			<el-form-item label="关联品牌" prop="brandId">
-				<el-select v-model="form.brandId" placeholder="请选择品牌" filterable>
+				<el-select v-model="form.brandId" placeholder="请选择品牌" filterable size="small">
 					<el-option v-for="item in params.brands" :key="item.id" :label="item.name" :value="item.id"></el-option>
 				</el-select>
 			</el-form-item>
 			<el-form-item label="关键词">
-				<el-input v-model="form.keywords" placeholder="请输入关键词"></el-input>
+				<el-input v-model="form.keywords" placeholder="请输入关键词" size="small"></el-input>
 			</el-form-item>
 			<el-form-item>
 				<el-button type="primary" size="small" @click="next">下一步</el-button>
 			</el-form-item>
 		</el-form>
-		
+
 	</div>
 </template>
 
@@ -40,7 +40,7 @@ export default {
 	created() {
 		//如果idd是-1，说明是add操作，不用接收数据。
 		if(this.idd===-1){
-			
+
 		}else{//如果idd不是-1，说明是修改操作，需要接收数据。
 			this.getone()
 		}
@@ -88,7 +88,7 @@ export default {
 					this.form['brandId'] = response['brandId']
 					this.form['keywords'] = response['keywords']
 				this.form.id = response.id
-		
+
 				// this.filelist.push({
 				// 	name: response.logo,
 				// 	url: this.img(response.logo)

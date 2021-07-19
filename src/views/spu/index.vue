@@ -8,9 +8,9 @@
 			:data="tableData"
       max-height="500px"
 			>
-			<el-table-column label="编号" prop="id"></el-table-column>
-			<el-table-column label="属性名" prop="name"></el-table-column>
-			<el-table-column width="150px">
+			<el-table-column label="编号" prop="id" align="center" width="100px"></el-table-column>
+			<el-table-column label="属性名" prop="name" align="center"></el-table-column>
+			<el-table-column width="150px" label="操作" align="center">
 				<template slot-scope="scope">
 					<el-button type="primary" plain @click="update(scope.row.id)" size="mini">修改</el-button>
 					<el-button type="danger" plain @click="del(scope.row.id,0)" size="mini">删除</el-button>

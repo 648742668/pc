@@ -8,15 +8,15 @@
       max-height="500px"
 			:data="tableData"
     >
-			<el-table-column label="编号" prop="id"></el-table-column>
-			<el-table-column label="属性名" prop="name"></el-table-column>
-			<el-table-column label="列表">
+			<el-table-column label="编号" prop="id" align="center" width="100"></el-table-column>
+			<el-table-column label="属性名" prop="name" align="center"></el-table-column>
+			<el-table-column label="列表" align="center">
         <template slot-scope="scope">
           <el-tag size="mini" :key="index" v-for="(item,index) in scope.row.items" style="margin-right: 5px">{{item.value}}</el-tag>
         </template>
 
       </el-table-column>
-			<el-table-column label="动态添加">
+			<el-table-column label="动态添加" align="center">
 				<template slot-scope="scope">
 					<span v-if="scope.row.addType === 1">支持</span>
 					<span v-else>不支持</span>

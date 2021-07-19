@@ -17,14 +17,14 @@
 </template>
 
 <script>
-  import uploadone from "@/components/Upload/uploadone";
-  import uploadmore from "@/components/Upload/uploadmore";
-export default {
+  import uploadone from '@/components/Upload/uploadone'
+  import uploadmore from '@/components/Upload/uploadmore'
+
+  export default {
   name: 'ImgForm',
   components:{
     uploadone,uploadmore
   },
-
   props: {
   	//从add.Vue中接收到idd参数。
   	idd: {
