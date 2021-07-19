@@ -3,11 +3,12 @@
 </template>
 
 <script>
-import echarts from 'echarts'
-require('echarts/theme/macarons') // echarts theme
-import resize from './mixins/resize'
+  import echarts from 'echarts'
+  import resize from './mixins/resize'
 
-export default {
+  require('echarts/theme/macarons') // echarts theme
+
+  export default {
   mixins: [resize],
   props: {
     className: {
@@ -61,14 +62,32 @@ export default {
       this.chart = echarts.init(this.$el, 'macarons')
       this.setOptions(this.chartData)
     },
-    setOptions({ expectedData, actualData } = {}) {
+    setOptions({ date, total } = {}) {
       this.chart.setOption({
+        title: {
+          text: '每日订单总价格',
+          top:0,
+          right:0,
+          textStyle:{
+            color:"#7b7979"
+          }
+        },
         xAxis: {
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-          boundaryGap: false,
+          data: date,
+          axisLabel: {
+            textStyle: {
+              color: '#784e4e'
+            },
+            interval:false,
+            rotate:45
+          },
           axisTick: {
             show: false
-          }
+          },
+          axisLine: {
+            show: false
+          },
+          z: 10
         },
         grid: {
           left: 10,
@@ -85,49 +104,38 @@ export default {
           padding: [5, 10]
         },
         yAxis: {
+          axisLine: {
+            show: false
+          },
           axisTick: {
             show: false
+          },
+          axisLabel: {
+            textStyle: {
+              color: '#999'
+            }
           }
         },
         legend: {
-          data: ['expected', 'actual']
+          data: ['total']
         },
         series: [{
-          name: 'expected', itemStyle: {
-            normal: {
-              color: '#FF005A',
-              lineStyle: {
-                color: '#FF005A',
-                width: 2
-              }
-            }
+          name: '订单总价值', itemStyle: {
+            color: new echarts.graphic.LinearGradient(
+              0, 0, 0, 1,
+              [
+                {offset: 0, color: '#83bff6'},
+                {offset: 0.5, color: '#188df0'},
+                {offset: 1, color: '#f17575'}
+              ]
+            )
           },
           smooth: true,
-          type: 'line',
-          data: expectedData,
+          type: 'bar',
+          data: total,
           animationDuration: 2800,
           animationEasing: 'cubicInOut'
-        },
-        {
-          name: 'actual',
-          smooth: true,
-          type: 'line',
-          itemStyle: {
-            normal: {
-              color: '#3888fa',
-              lineStyle: {
-                color: '#3888fa',
-                width: 2
-              },
-              areaStyle: {
-                color: '#f3f8ff'
-              }
-            }
-          },
-          data: actualData,
-          animationDuration: 2800,
-          animationEasing: 'quadraticOut'
-        }]
+        },]
       })
     }
   }

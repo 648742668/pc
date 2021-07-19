@@ -3,13 +3,30 @@
 </template>
 
 <script>
-import echarts from 'echarts'
-require('echarts/theme/macarons') // echarts theme
-import resize from './mixins/resize'
+  import echarts from 'echarts'
+  import resize from './mixins/resize'
 
-export default {
+  require('echarts/theme/macarons') // echarts theme
+
+  export default {
   mixins: [resize],
+  watch: {
+    data: {
+      deep: true,
+      handler(val) {
+        this.setOptions(val)
+      }
+    }
+  },
   props: {
+    data:{
+      type:Array,
+      default:()=>{return []}
+    },
+    title:{
+      type: String,
+      default: 'chart'
+    },
     className: {
       type: String,
       default: 'chart'
@@ -41,10 +58,20 @@ export default {
     this.chart = null
   },
   methods: {
-    initChart() {
-      this.chart = echarts.init(this.$el, 'macarons')
-
+    setOptions(){
+      let k = []
+      for (let i of this.data){
+        k.push(i.name)
+      }
       this.chart.setOption({
+        title: {
+          text: this.title,
+          top:0,
+          right:0,
+          textStyle:{
+            color:"#7b7979"
+          }
+        },
         tooltip: {
           trigger: 'item',
           formatter: '{a} <br/>{b} : {c} ({d}%)'
@@ -52,7 +79,7 @@ export default {
         legend: {
           left: 'center',
           bottom: '10',
-          data: ['Industries', 'Technology', 'Forex', 'Gold', 'Forecasts']
+          data: k
         },
         series: [
           {
@@ -61,18 +88,16 @@ export default {
             roseType: 'radius',
             radius: [15, 95],
             center: ['50%', '38%'],
-            data: [
-              { value: 320, name: 'Industries' },
-              { value: 240, name: 'Technology' },
-              { value: 149, name: 'Forex' },
-              { value: 100, name: 'Gold' },
-              { value: 59, name: 'Forecasts' }
-            ],
+            data: this.data,
             animationEasing: 'cubicInOut',
             animationDuration: 2600
           }
         ]
       })
+    },
+    initChart() {
+      this.chart = echarts.init(this.$el, 'macarons')
+      this.setOptions()
     }
   }
 }
