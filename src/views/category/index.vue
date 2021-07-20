@@ -39,7 +39,7 @@
 			<el-table-column width="235px" align="center" prop="操作">
 				<template slot-scope="scope">
 					<template v-if="scope.row.isActive === 1">
-						<el-button type="primary" plain @click="add(scope.row.id, scope.row.level + 1)" size="mini">添加下级</el-button>
+						<el-button type="primary" v-if="scope.row.level < 3" plain @click="add(scope.row.id, scope.row.level + 1)" size="mini">添加下级</el-button>
 						<el-button type="primary" plain @click="update(scope.row.id)" size="mini">修改</el-button>
 						<el-button type="danger" plain @click="del(scope.row.id,0)" size="mini">删除</el-button>
 					</template>

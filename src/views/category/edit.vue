@@ -2,7 +2,7 @@
 	<div>
 		<el-form ref="myform" :model="form" label-width="80px" :rules="rules">
 			<el-form-item label="分类名称" prop="name">
-				<el-input v-model="form.name"></el-input>
+				<el-input v-model="form.name" size="small"></el-input>
 			</el-form-item>
       <el-form-item label="logo" prop="file">
         <el-upload
@@ -18,7 +18,7 @@
         </el-upload>
       </el-form-item>
 			<el-form-item>
-				<el-button type="primary" plain @click="save">保存</el-button>
+				<el-button type="primary" plain @click="save" size="small" style="float: right">保存</el-button>
 			</el-form-item>
 		</el-form>
 	</div>
@@ -49,6 +49,9 @@
 			} else {
 				this.form.parentId = this.parentId
 				this.form.level = this.level
+        if (this.level===3){
+          this.rules.file.push({required: true, message: '请上传分类图片', trigger: 'change'})
+        }
 			}
 		},
 		data() {
@@ -99,6 +102,7 @@
 						this.form[key] = response[key]
 					}
 					this.form.id = response.id
+
           this.fileList.push({
             name: response.image, url: IMG_URL + response.image
           })
